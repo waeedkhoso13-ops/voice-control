@@ -22,6 +22,13 @@ jobs:
         with:
           gradle-version: 8.5
 
+      - name: Download offline speech model
+        run: |
+          curl -L -o model.zip https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
+          unzip -q model.zip
+          rm -rf app/src/main/assets/model-en-us
+          mv vosk-model-small-en-us-0.15 app/src/main/assets/model-en-us
+
       - name: Build debug APK
         run: gradle assembleDebug --stacktrace
 
