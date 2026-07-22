@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Boliye, jaise: &quot;flashlight on karo&quot;"
+        android:textSize="18sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:id="@+id/micButton"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:text="🎤\nBolo"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/alwaysListenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Hamesha sunna: OFF" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/logText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp" />
+    </ScrollView>
+
+</LinearLayout>

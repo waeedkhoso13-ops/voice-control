@@ -1,0 +1,2 @@
+Is folder mein Vosk ka offline model dalna hai — is file ko delete kar dein
+jab model daal dein.
