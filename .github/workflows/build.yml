@@ -28,6 +28,7 @@ jobs:
           unzip -q model.zip
           rm -rf app/src/main/assets/model-en-us
           mv vosk-model-small-en-us-0.15 app/src/main/assets/model-en-us
+          uuidgen > app/src/main/assets/model-en-us/uuid
 
       - name: Build debug APK
         run: gradle assembleDebug --stacktrace
