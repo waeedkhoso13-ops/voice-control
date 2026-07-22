@@ -8,11 +8,6 @@ import android.media.AudioManager
 import android.net.Uri
 import androidx.core.content.ContextCompat
 
-/**
- * All voice-command logic lives here so both the foreground Activity
- * (when the app is open) and the background Service (always-listening
- * mode) behave identically. Add new phrases in handleCommand().
- */
 object CommandHandler {
 
     var onLog: ((String) -> Unit)? = null
@@ -22,20 +17,40 @@ object CommandHandler {
     }
 
     fun handleCommand(context: Context, command: String) {
+        TtsHelper.init(context)
         when {
-            command.contains("flashlight") || (command.contains("torch") && !command.contains("off")) ->
-                toggleFlashlight(context, true)
-            command.contains("flash off") || command.contains("torch off") ->
-                toggleFlashlight(context, false)
-            command.contains("call") -> handleCall(context, command)
-            command.contains("message") || command.contains("sms") -> handleSms(context, command)
-            command.contains("whatsapp") -> openApp(context, "com.whatsapp")
-            command.contains("camera") -> openCamera(context)
-            command.contains("volume up") -> adjustVolume(context, true)
-            command.contains("volume down") -> adjustVolume(context, false)
-            command.contains("search") -> webSearch(context, command)
+            command.contains("hello raza") || command.contains("hi raza") ||
+                command.contains("हेलो राज़ा") || command.contains("हेलो राजा") ||
+                command.contains("हैलो राज़ा") || command.contains("हैलो राजा") ||
+                command.contains("राज़ा") || command.contains("राजा") ->
+                respondToGreeting(context)
+            command.contains("flashlight") || command.contains("torch") ||
+                command.contains("टॉर्च") || command.contains("फ्लैश") ->
+                if (command.contains("off") || command.contains("बंद")) {
+                    toggleFlashlight(context, false)
+                } else {
+                    toggleFlashlight(context, true)
+                }
+            command.contains("call") || command.contains("कॉल") -> handleCall(context, command)
+            command.contains("message") || command.contains("sms") ||
+                command.contains("मैसेज") || command.contains("संदेश") -> handleSms(context, command)
+            command.contains("whatsapp") || command.contains("व्हाट्सएप") -> openApp(context, "com.whatsapp")
+            command.contains("camera") || command.contains("कैमरा") -> openCamera(context)
+            command.contains("volume up") || command.contains("आवाज़ बढ़ा") || command.contains("आवाज बढ़ा") ->
+                adjustVolume(context, true)
+            command.contains("volume down") || command.contains("आवाज़ कम") || command.contains("आवाज कम") ->
+                adjustVolume(context, false)
+            command.contains("search") || command.contains("खोज") || command.contains("सर्च") ->
+                webSearch(context, command)
             else -> log("Ye command samajh nahi aaya: $command")
         }
+    }
+
+    private fun respondToGreeting(context: Context) {
+        val replies = listOf("जी बोलिए", "जी फरमाइए", "हाँ मैं सुन रहा हूँ")
+        val reply = replies.random()
+        TtsHelper.speak(reply)
+        log("Raza ne jawab diya: $reply")
     }
 
     private fun toggleFlashlight(context: Context, turnOn: Boolean) {
